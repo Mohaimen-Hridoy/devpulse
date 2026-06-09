@@ -2,24 +2,19 @@
   "name": "devpulse",
   "version": "1.0.0",
   "description": "DevPulse API built with Express, TypeScript, and PostgreSQL",
-  "main": "index.js",
+  "main": "dist/server.js",
   "type": "module",
+
   "scripts": {
     "dev": "tsx watch ./src/server.ts",
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node dist/server.js"
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@types/bcrypt": "^6.0.0",
-    "@types/express": "^5.0.6",
-    "@types/jsonwebtoken": "^9.0.10",
-    "@types/pg": "^8.20.0",
-    "tsx": "^4.22.4",
-    "typescript": "^6.0.3"
-  },
+
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
@@ -27,5 +22,14 @@
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.21.0"
+  },
+
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/pg": "^8.20.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
   }
 }

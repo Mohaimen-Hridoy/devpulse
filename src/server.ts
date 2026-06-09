@@ -6,8 +6,10 @@ const startServer = async () => {
   try {
     await initDB();
 
-    app.listen(config.port, () => {
-      console.log(`Server running on port ${config.port}`);
+    const port = process.env.PORT || config.port || 8000;
+
+    app.listen(port, () => {
+      console.log(`Server running on port ${port}`);
     });
   } catch (error) {
     console.error("Server failed to start:", error);

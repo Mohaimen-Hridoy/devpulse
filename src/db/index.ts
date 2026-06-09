@@ -1,9 +1,12 @@
-import { Pool } from "pg"
-import config from "../config"
+import { Pool } from "pg";
+import config from "../config";
 
 export const pool = new Pool({
   connectionString: config.connection_string,
-})
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
 
 export const initDB = async () => {
   try {
@@ -17,7 +20,7 @@ export const initDB = async () => {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
-    `)
+    `);
 
     await pool.query(`
       CREATE TABLE IF NOT EXISTS issues (
@@ -30,10 +33,10 @@ export const initDB = async () => {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
-    `)
+    `);
 
-    console.log("Database Tables Ready")
+    console.log("Database Tables Ready");
   } catch (error) {
-    console.log("DB Error:", error)
+    console.log("DB Error:", error);
   }
-}
+};

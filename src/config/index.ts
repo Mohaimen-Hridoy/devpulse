@@ -1,14 +1,14 @@
-import dotenv from "dotenv"
-import path from "path"
+import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({
   path: path.join(process.cwd(), ".env"),
-})
+});
 
 const config = {
-  connection_string: process.env.CONNECTIONSTRING as string,
-  port: process.env.PORT,
+  connection_string: process.env.CONNECTION_STRING as string,
+  port: process.env.PORT || 8000,
   jwt_secret: process.env.JWT_SECRET as string,
-}
+};
 
-export default config
+export default config;
