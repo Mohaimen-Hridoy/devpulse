@@ -19,7 +19,8 @@ DevPulse is a backend REST API built using Express, TypeScript, and PostgreSQL. 
 - dotenv
 
 ---
-
+ 
+ 
 ## Features
 
 - User Authentication (Register/Login)
