@@ -29,7 +29,9 @@ const getAllIssues = async (req: Request, res: Response) => {
 }
 
 const getSingleIssue = async (req: Request, res: Response) => {
-  const result = await issueService.getSingleIssue(req.params.id)
+  const result = await issueService.getSingleIssue(
+    req.params.id as string
+  )
 
   res.status(200).json({
     success: true,
@@ -41,7 +43,7 @@ const getSingleIssue = async (req: Request, res: Response) => {
 const updateIssue = async (req: any, res: Response) => {
   try {
     const result = await issueService.updateIssue(
-      req.params.id,
+      req.params.id as string,
       req.body,
       req.user
     )
@@ -61,7 +63,10 @@ const updateIssue = async (req: any, res: Response) => {
 
 const deleteIssue = async (req: any, res: Response) => {
   try {
-    await issueService.deleteIssue(req.params.id, req.user)
+    await issueService.deleteIssue(
+      req.params.id as string,
+      req.user
+    )
 
     res.status(200).json({
       success: true,
