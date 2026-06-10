@@ -71,7 +71,7 @@ const getSingleIssue = async (id: string) => {
 
   const issue = result.rows[0]
 
-  if (!issue) throw new Error("Issue not found")
+  if (!issue) return null
 
   const reporter = await pool.query(
     `SELECT id, name, role FROM users WHERE id=$1`,
@@ -98,7 +98,7 @@ const updateIssue = async (id: string, payload: any, user: any) => {
 
   const issue = issueRes.rows[0]
 
-  if (!issue) throw new Error("Issue not found")
+  if (!issue) return null
 
   if (user.role === "contributor" && issue.reporter_id !== user.id) {
     throw new Error("Not your issue")
@@ -133,7 +133,7 @@ const deleteIssue = async (id: string, user: any) => {
 
   const issue = issueRes.rows[0]
 
-  if (!issue) throw new Error("Issue not found")
+  if (!issue) return false
 
   if (user.role !== "maintainer") {
     throw new Error("Forbidden")

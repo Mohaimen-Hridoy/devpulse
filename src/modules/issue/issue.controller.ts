@@ -39,13 +39,20 @@ const getSingleIssue = async (req: Request, res: Response) => {
   try {
     const result = await issueService.getSingleIssue(req.params.id)
 
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      })
+    }
+
     return res.status(200).json({
       success: true,
       message: "Issue retrieved successfully",
       data: result,
     })
   } catch (error: any) {
-    return res.status(404).json({
+    return res.status(500).json({
       success: false,
       message: error.message,
     })
@@ -59,6 +66,13 @@ const updateIssue = async (req: any, res: Response) => {
       req.body,
       req.user
     )
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      })
+    }
 
     return res.status(200).json({
       success: true,
@@ -75,7 +89,14 @@ const updateIssue = async (req: any, res: Response) => {
 
 const deleteIssue = async (req: any, res: Response) => {
   try {
-    await issueService.deleteIssue(req.params.id, req.user)
+    const result = await issueService.deleteIssue(req.params.id, req.user)
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      })
+    }
 
     return res.status(200).json({
       success: true,
