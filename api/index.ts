@@ -1,5 +1,5 @@
-import app from "../src/app";
-import { initDB } from "../src/db/index";
+import app from "../src/app.js";
+import { initDB } from "../src/db/index.js";
 
 initDB().catch(console.error);
 
