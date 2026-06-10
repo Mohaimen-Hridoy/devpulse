@@ -9,7 +9,7 @@ Backend API: https://dev-pulse-ashen-zeta.vercel.app
 
 Tech Stack
 Technology	Purpose
-Node.js	Runtime environment (v24+)
+Node.js	Runtime environment
 TypeScript	Type safety
 Express.js	Backend framework
 PostgreSQL	Relational database
