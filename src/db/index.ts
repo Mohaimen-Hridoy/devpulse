@@ -1,11 +1,11 @@
 import { Pool } from "pg";
-import config from "../config";
+import config from "../config/index.js";
 
 export const pool = new Pool({
   connectionString: config.connection_string,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 export const initDB = async () => {
@@ -35,7 +35,7 @@ export const initDB = async () => {
       );
     `);
 
-    console.log("Database Tables Ready");
+    console.log("Database Connected Successfully");
   } catch (error) {
     console.log("DB Error:", error);
   }

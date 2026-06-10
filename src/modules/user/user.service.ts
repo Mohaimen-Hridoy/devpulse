@@ -56,7 +56,7 @@ const loginUser = async (payload: any) => {
       created_at: user.created_at,
       updated_at: user.updated_at,
     },
-  }//
+  }
 }
 
 export const userService = {
