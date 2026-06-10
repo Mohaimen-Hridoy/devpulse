@@ -1,44 +1,63 @@
-import type { Request, Response } from "express"
-import { issueService } from "./issue.service.js"
+import type { Request, Response } from "express";
+import { issueService } from "./issue.service.js";
 
 const createIssue = async (req: any, res: Response) => {
   try {
-    const result = await issueService.createIssue(req.body, req.user)
+    const result = await issueService.createIssue(req.body, req.user);
 
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Issue created successfully",
       data: result,
-    })
-  } catch (error: any) {
-    res.status(500).json({
+    });
+  } catch {
+    return res.status(500).json({
       success: false,
-      message: error.message,
-    })
+      message: "Internal server error",
+    });
   }
-}
+};
 
 const getAllIssues = async (req: Request, res: Response) => {
-  const result = await issueService.getAllIssues(req.query)
+  try {
+    const result = await issueService.getAllIssues(req.query);
 
-  res.status(200).json({
-    success: true,
-    message: "Issues retrieved successfully",
-    data: result,
-  })
-}
+    return res.status(200).json({
+      success: true,
+      message: "Issues retrieved successfully",
+      data: result,
+    });
+  } catch {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 
 const getSingleIssue = async (req: Request, res: Response) => {
-  const result = await issueService.getSingleIssue(
-    req.params.id as string
-  )
+  try {
+    const result = await issueService.getSingleIssue(req.params.id as string);
 
-  res.status(200).json({
-    success: true,
-    message: "Issue retrieved successfully",
-    data: result,
-  })
-}
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Issue retrieved successfully",
+      data: result,
+    });
+  } catch {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 
 const updateIssue = async (req: any, res: Response) => {
   try {
@@ -46,39 +65,50 @@ const updateIssue = async (req: any, res: Response) => {
       req.params.id as string,
       req.body,
       req.user
-    )
+    );
 
-    res.status(200).json({
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+
+    return res.status(200).json({
       success: true,
       message: "Issue updated successfully",
       data: result,
-    })
+    });
   } catch (error: any) {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: error.message,
-    })
+    });
   }
-}
+};
 
 const deleteIssue = async (req: any, res: Response) => {
   try {
-    await issueService.deleteIssue(
-      req.params.id as string,
-      req.user
-    )
+    const result = await issueService.deleteIssue(req.params.id as string, req.user);
 
-    res.status(200).json({
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+
+    return res.status(200).json({
       success: true,
       message: "Issue deleted successfully",
-    })
-  } catch (error: any) {
-    res.status(500).json({
+    });
+  } catch {
+    return res.status(500).json({
       success: false,
-      message: error.message,
-    })
+      message: "Internal server error",
+    });
   }
-}
+};
 
 export const issueController = {
   createIssue,
@@ -86,4 +116,4 @@ export const issueController = {
   getSingleIssue,
   updateIssue,
   deleteIssue,
-}
+};
