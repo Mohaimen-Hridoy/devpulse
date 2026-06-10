@@ -4,14 +4,18 @@ import config from "../config/index.js";
 
 export const auth = (...roles: string[]) => {
   return (req: any, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization;
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader) {
       return res.status(401).json({
         success: false,
         message: "Unauthorized",
       });
     }
+
+    const token = authHeader.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : authHeader;
 
     try {
       const decoded = jwt.verify(token, config.jwt_secret);
